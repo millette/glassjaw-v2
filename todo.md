@@ -1,17 +1,21 @@
 # TODO
 
 ## Next
-* Upload images (attach to docs)
+Move timeago to client side (because of etag caching)
 
 ## Details
+### Improve interface
+* AJAX frontpage
+* PouchDB (offline mode)
+* Graphs
+
 ### Site Structure (routes)
 * Main pages (about, faq, etc.)
-* Sections
-* Subjects
 
 ### User roles
+* Register a new user
 * Anon
-* Just register (new user, unconfirmed)
+* Just registered (new user, unconfirmed)
 * Connected
 * Actions
 
