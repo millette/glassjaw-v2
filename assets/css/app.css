@@ -5,3 +5,14 @@ label.file > img {
 label.file > input[type="file"] {
   display: none;
 }
+
+div > a > img {
+  overflow: hidden;
+  transition-duration: 1.3s;
+  transition-property: transform;
+}
+
+div > a > img:hover {
+  transform: rotate(360deg);
+}
+
