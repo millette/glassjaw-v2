@@ -1,7 +1,8 @@
 <%= partials.head(data) %>
-<div class="row collapsed">
+<div class="row">
 <% _(data.docs).each((doc, i) => { %>
 <%= partials['doc-front']({ edit: data.credentials && true, doc: doc, i: i }) %>
 <% }) %>
+<%= partials['doc-front']({ edit: false, doc: { _id: 'new', _attachments: { }, img: '/img/plus-3.png', title: 'Nouveau', end: true } }) %>
 </div>
 <%= partials.foot(data) %>
