@@ -7,10 +7,12 @@ const pify = require('pify')
 const truncate = require('html-truncate')
 const sharp = require('sharp')
 const marked = require('marked')
+const TimeAgo = require('timeago.js')
 
 // core
 const url = require('url')
 
+const ago = new TimeAgo()
 const reserved = ['contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
 exports.register = (server, options, next) => {
@@ -111,6 +113,7 @@ exports.register = (server, options, next) => {
           }
         } else {
           tpl = 'front'
+          obj.ago = ago.format
         }
       } else {
         return reply.notImplemented('What\'s that?', payload)
@@ -144,18 +147,15 @@ exports.register = (server, options, next) => {
 
   const punchIt = function (request, reply) {
     const doc = request.pre.m1
-    console.log('punching:', request.payload)
     if (!doc.punches) { doc.punches = [] }
     const punch = { datetime: new Date().toISOString() }
     if (request.payload.comment) { punch.comment = request.payload.comment }
     doc.punches.push(punch)
-    console.log('doc:', doc)
     const db = nano({ url: dbUrl, cookie: request.auth.credentials.cookie })
     const insert = pify(db.insert, { multiArgs: true })
 
     insert(doc)
       .then((a) => {
-        console.log('INSERT:', a)
         reply.redirect(request.payload.next || '/')
       })
       .catch((err) => {
