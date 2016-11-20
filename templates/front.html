@@ -1,8 +1,10 @@
 <%= partials.head(data) %>
-<div class="row">
+<form method="get">
+<div class="row small-up-2 medium-up-4 large-up-6">
 <% _(data.docs).each((doc, i) => { %>
 <%= partials['doc-front']({ edit: data.credentials && true, doc: doc, i: i }) %>
 <% }) %>
 <%= partials['doc-front']({ edit: false, doc: { _id: 'new', _attachments: { }, img: '/img/plus-3.png', title: 'Nouveau', end: true } }) %>
 </div>
+</form>
 <%= partials.foot(data) %>

@@ -6,13 +6,23 @@ label.file > input[type="file"] {
   display: none;
 }
 
-div > a > img {
+form div > button:first-child {
+  max-width: 100%;
+}
+
+form div > a:first-child > img:first-child {
+  border: thin dashed red;
+}
+
+form div > button:first-child,
+form div > a:first-child > img:first-child {
   overflow: hidden;
   transition-duration: 1.3s;
   transition-property: transform;
 }
 
-div > a > img:hover {
+form div > button:first-child:hover,
+form div > a:first-child > img:first-child:hover {
   transform: rotate(360deg);
 }
 

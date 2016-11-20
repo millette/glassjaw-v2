@@ -24,7 +24,7 @@ Composer((err, server) => {
 
     server.start((err) => {
       if (err) { throw err }
-      console.log('Started the web server on port ' + server.info.port)
+      console.log(new Date(), '\nStarted the web server on port ' + server.info.port)
     })
   })
 })

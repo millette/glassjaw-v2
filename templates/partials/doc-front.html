@@ -1,5 +1,9 @@
-<div class="column small-6 medium-3 large-2<%- data.doc.end ? ' end' : '' %>">
-  <a href="/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
+<div class="column">
+  <% if (data.doc.img) { %>
+    <a href="/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
+  <% } else { %>
+    <button name="but" value="<%- data.doc._id %>">
+  <% } %>
   <% if (data.doc._attachments['top-image-3.jpeg']) { %>
     <img src="/<%- data.doc._id %>/top-image-3.jpeg" alt="<%- data.doc.title || data.doc._id %>">
   <% } else if (data.doc._attachments['top-image-3.png']) { %>
@@ -9,5 +13,9 @@
   <% } else { %>
     <%- data.doc.title || data.doc._id %>
   <% } %>
-  </a>
+  <% if (data.doc.img) { %>
+    </a>
+  <% } else { %>
+    </button>
+  <% } %>
 </div>

@@ -110,7 +110,7 @@ exports.register = (server, options, next) => {
             obj.next = request.query.next.slice(1).split('/')
           }
         } else {
-          tpl = 'docs'
+          tpl = 'front'
         }
       } else {
         return reply.notImplemented('What\'s that?', payload)
