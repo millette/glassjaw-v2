@@ -129,7 +129,14 @@ exports.register = (server, options, next) => {
 
     const get = pify(db.get, { multiArgs: true })
     get(request.payload.punch || request.params.pathy)
-      .then((x) => reply(x[0]))
+      .then((x) => {
+        const doc = x[0]
+        if (doc.weight && typeof doc.weight === 'string') {
+          doc.weight = parseFloat(doc.weight)
+        }
+
+        reply(doc)
+      })
       .catch(reply)
   }
 
@@ -181,6 +188,10 @@ exports.register = (server, options, next) => {
     let p
     if (request.pre && request.pre.m1 && request.pre.m1.punches) {
       request.payload.punches = request.pre.m1.punches
+    }
+
+    if (request.payload.weight && typeof request.payload.weight === 'string') {
+      request.payload.weight = parseFloat(request.payload.weight)
     }
 
     if (request.payload.jpeg && request.payload.jpeg.length) {
