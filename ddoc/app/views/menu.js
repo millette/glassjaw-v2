@@ -1,5 +1,9 @@
+/* globals emit */
+
+'use strict'
+
 module.exports = {
-  map: function(doc) {
+  map: function (doc) {
     const obj = { path: '/' + doc._id }
     const weight = doc.weight ? parseInt(doc.weight, 10) : 999
     if (doc.menu_title) {
@@ -11,9 +15,9 @@ module.exports = {
     if (!obj.title) { return }
     if (doc._attachments) {
       if (doc._attachments['top-image-1.jpeg']) {
-         obj.img = obj.path + '/top-image-1.jpeg'
+        obj.img = obj.path + '/top-image-1.jpeg'
       } else if (doc._attachments['top-image-1.png']) {
-         obj.img = obj.path + '/top-image-1.png'
+        obj.img = obj.path + '/top-image-1.png'
       }
     }
     emit(weight, obj)

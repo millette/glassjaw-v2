@@ -39,7 +39,6 @@ exports.register = (server, options, next) => {
         console.log('EEEEE:', e)
         reply(e)
       })
-
   }
 
   const mapperContact = (request, callback) => {
@@ -48,6 +47,7 @@ exports.register = (server, options, next) => {
   }
 
   const responderContact = (err, res, request, reply) => {
+    if (err) { return reply(err) } // FIXME: how to test?
     const go = (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
       reply.view('10-4', { theMsg: 'oh well', payload: payload })
@@ -63,7 +63,7 @@ exports.register = (server, options, next) => {
   const mapper = (request, callback) => {
     const it = [dbUrl]
     let dest
-    if (request.params.pathy && request.params.pathy !== 'admin' ) {
+    if (request.params.pathy && request.params.pathy !== 'admin') {
       it.push(request.params.pathy)
       dest = it.join('/')
     } else {
