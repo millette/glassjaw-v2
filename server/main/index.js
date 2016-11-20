@@ -68,7 +68,7 @@ exports.register = (server, options, next) => {
       dest = it.join('/')
     } else {
       it.push('_design/app/_view/menu')
-      dest = it.join('/') + '?include_docs=true'
+      dest = it.join('/') + '?include_docs=true&reduce=false'
     }
     callback(null, dest, { accept: 'application/json' })
   }
@@ -82,7 +82,6 @@ exports.register = (server, options, next) => {
 
     const go = (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
-
       let tpl
       let obj
       if (payload._id) {
@@ -121,7 +120,6 @@ exports.register = (server, options, next) => {
         : res.headers.etag
       reply.view(tpl, obj).etag(etag)
     }
-
     Wreck.read(res, { json: true }, go)
   }
 
