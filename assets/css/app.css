@@ -6,23 +6,23 @@ label.file > input[type="file"] {
   display: none;
 }
 
-form div > button:first-child {
+form > button:first-child {
   max-width: 100%;
 }
 
-form div > a:first-child > img:first-child {
+form > a:first-child > img:first-child {
   border: thin dashed red;
 }
 
-form div > button:first-child,
-form div > a:first-child > img:first-child {
+form > button:first-child,
+form > a:first-child > img:first-child {
   overflow: hidden;
   transition-duration: 1.3s;
   transition-property: transform;
 }
 
-form div > button:first-child:hover,
-form div > a:first-child > img:first-child:hover {
+form > button:first-child:hover,
+form > a:first-child > img:first-child:hover {
   transform: rotate(360deg);
 }
 

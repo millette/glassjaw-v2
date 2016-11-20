@@ -5,18 +5,28 @@ dans Futon (interface CouchDB).
 </p>
 <% } %>
 <form method="POST" enctype="multipart/form-data">
+  <label>
   <% if (data.doc && data.doc._id) { %>
   <input type="text" name="id" placeholder="id" readonly value="<%- data.doc && data.doc._id %>">
   <% } else { %>
   <input type="text" name="id" placeholder="id" required">
   <% } %>
+  </label>
+  <label>
   <input type="text" name="title" placeholder="titre" required value="<%- data.doc && data.doc.title || '' %>">
+  </label>
   <textarea rows="9" name="content" placeholder="contenu"><%- data.doc && data.doc.content || '' %></textarea>
   <% if (data.doc && data.doc._rev) { %>
   <input type="hidden" name="rev" value="<%- data.doc && data.doc._rev %>">
   <% } %>
+  <label>Punch commenté? <input type="checkbox" name="punch_comment"<%- (data.doc && data.doc.punch_comment) ? ' checked' : '' %>></label>
+  <label>
   <input type="text" name="menu_title" placeholder="Titre du menu" value="<%- data.doc && data.doc.menu_title || '' %>">
+  </label>
+
+  <label>
   <input type="number" step="any" name="weight" placeholder="5" value="<%- data.doc && data.doc.weight || '' %>">
+  </label>
   <label class="file">
 <% if (data.doc._attachments['top-image-2.jpeg']) { %>
   <img title="Remplacer l'image (jpeg ou png)" src="/<%- data.doc._id %>/top-image-2.jpeg">

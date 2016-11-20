@@ -1,4 +1,5 @@
 <div class="column">
+<form method="post">
   <% if (data.doc.img) { %>
     <a href="/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
   <% } else { %>
@@ -16,6 +17,13 @@
   <% if (data.doc.img) { %>
     </a>
   <% } else { %>
+    <% if (data.doc.punches && data.doc.punches.length) { %>
+      Last punched at <%- new Date(data.doc.punches[data.doc.punches.length - 1].datetime) %>
+    <% } %>
     </button>
+    <% if (data.doc.punch_comment) { %>
+      <input type="text" placeholder="comment" name="comment">
+    <% } %>
   <% } %>
+</form>
 </div>

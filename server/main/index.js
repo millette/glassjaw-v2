@@ -162,8 +162,10 @@ exports.register = (server, options, next) => {
         console.log('ERR:', err)
         reply(err)
       })
+  }
 
-    // reply.redirect(request.payload.next || '/')
+  const newDoc = function (request, reply) {
+    reply.view('new-doc', { doc: { _attachments: [] }, menu: request.pre.menu })
   }
 
   const editDoc = function (request, reply) {
@@ -256,12 +258,7 @@ exports.register = (server, options, next) => {
     config: {
       auth: { mode: 'required' },
       pre: [{ assign: 'menu', method: menu }],
-      handler: {
-        view: {
-          template: 'new-doc',
-          context: { doc: { _attachments: [] } }
-        }
-      }
+      handler: newDoc
     }
   })
 
