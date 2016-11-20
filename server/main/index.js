@@ -230,7 +230,6 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/new',
     config: {
-      payload: { maxBytes: 1e7 },
       auth: { mode: 'required' },
       handler: editDoc
     }
