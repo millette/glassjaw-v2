@@ -21,7 +21,7 @@ exports.register = (server, options, next) => {
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
 
     const view = pify(db.view, { multiArgs: true })
-    view('app', 'menu')
+    view('app', 'menu', { reduce: false })
       .then((x) => {
         const items = x[0].rows.map((r) => r.value)
         items.unshift({ path: '/', title: 'Accueil' })
