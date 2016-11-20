@@ -128,12 +128,36 @@ exports.register = (server, options, next) => {
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
 
     const get = pify(db.get, { multiArgs: true })
-    get(request.params.pathy)
+    get(request.payload.punch || request.params.pathy)
       .then((x) => reply(x[0]))
       .catch(reply)
   }
 
   const resize = (image, width, height) => sharp(image).resize(width, height).max().toBuffer()
+
+  const punchIt = function (request, reply) {
+    const doc = request.pre.m1
+    console.log('punching:', request.payload)
+    if (!doc.punches) { doc.punches = [] }
+    const punch = { datetime: new Date().toISOString() }
+    if (request.payload.comment) { punch.comment = request.payload.comment }
+    doc.punches.push(punch)
+    console.log('doc:', doc)
+    const db = nano({ url: dbUrl, cookie: request.auth.credentials.cookie })
+    const insert = pify(db.insert, { multiArgs: true })
+
+    insert(doc)
+      .then((a) => {
+        console.log('INSERT:', a)
+        reply.redirect(request.payload.next || '/')
+      })
+      .catch((err) => {
+        console.log('ERR:', err)
+        reply(err)
+      })
+
+    // reply.redirect(request.payload.next || '/')
+  }
 
   const editDoc = function (request, reply) {
     if (reserved.indexOf(request.payload.id) !== -1) { return reply.forbidden('The provided field "id" is unacceptable.', { reserved: reserved }) }
@@ -155,6 +179,10 @@ exports.register = (server, options, next) => {
     )
 
     let p
+    if (request.pre && request.pre.m1 && request.pre.m1.punches) {
+      request.payload.punches = request.pre.m1.punches
+    }
+
     if (request.payload.jpeg && request.payload.jpeg.length) {
       p = sharp(request.payload.jpeg).metadata()
         .then((m) => Promise.all([
@@ -251,6 +279,16 @@ exports.register = (server, options, next) => {
   })
 
   server.route({
+    method: 'POST',
+    path: '/',
+    config: {
+      pre: [ { method: getDoc, assign: 'm1' } ],
+      auth: { mode: 'required' },
+      handler: punchIt
+    }
+  })
+
+  server.route({
     method: 'GET',
     path: '/{pathy}',
     config: {
@@ -340,7 +378,6 @@ exports.register = (server, options, next) => {
     method: 'POST',
     path: '/{pathy}/{action}',
     config: {
-      payload: { maxBytes: 1e7 },
       pre: [ { method: getDoc, assign: 'm1' } ],
       auth: { mode: 'required' },
       handler: editDoc
