@@ -51,7 +51,6 @@ const manifest = {
         options: {
           title: 'Status monitor',
           path: '/status',
-          // FIXME: Doesn't work, why?
           routeConfig: { auth: { mode: 'required' } }
         }
       }
