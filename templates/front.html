@@ -1,5 +1,5 @@
 <%= partials.head(data) %>
-<div class="row small-up-2 medium-up-4 large-up-6">
+<div class="row small-up-2 medium-up-3 large-up-5">
 <% _(data.docs).each((doc, i) => { %>
 <%= partials['doc-front']({ ago: data.ago, edit: data.credentials && true, doc: doc, i: i }) %>
 <% }) %>

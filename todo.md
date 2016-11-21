@@ -1,6 +1,7 @@
 # TODO
 
 ## Next
+* Fix access
 
 ## Details
 ### Improve interface
@@ -9,6 +10,7 @@
 * Graphs
 * API
 * Undo punch (within 30 seconds)
+* Goals, rules and incentives
 
 ### Site Structure (routes)
 * Main pages (about, faq, etc.)
