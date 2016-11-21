@@ -1,13 +1,14 @@
 # TODO
 
 ## Next
-Move timeago to client side (because of etag caching)
 
 ## Details
 ### Improve interface
 * AJAX frontpage
 * PouchDB (offline mode)
 * Graphs
+* API
+* Undo punch (within 30 seconds)
 
 ### Site Structure (routes)
 * Main pages (about, faq, etc.)

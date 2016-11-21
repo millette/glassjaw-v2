@@ -5,7 +5,12 @@
   <% } else { %>
     <button name="punch" value="<%- data.doc._id %>">
     <% if (data.doc.punches && data.doc.punches.length) { %>
-      <p>Dernier punch <%- data.ago(data.doc.punches[data.doc.punches.length - 1].datetime, 'fr') %></p>
+      <p>
+        Dernier punch
+        <span class="timeago" datetime="<%- data.doc.punches[data.doc.punches.length - 1].datetime %>">
+          <%- data.doc.punches[data.doc.punches.length - 1].datetime.replace('T', ' ') %>
+        </span>
+      </p>
     <% } %>
 
   <% } %>
