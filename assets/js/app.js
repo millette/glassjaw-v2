@@ -2,6 +2,7 @@
 
 $(function () {
   $(document).foundation()
-  var timeagoInstance = new timeago()
+  var Timeago = timeago
+  var timeagoInstance = new Timeago()
   timeagoInstance.render($('.timeago'), 'fr')
 })
