@@ -7,15 +7,10 @@ const pify = require('pify')
 const truncate = require('html-truncate')
 const sharp = require('sharp')
 const marked = require('marked')
-// const TimeAgo = require('timeago.js')
-// const timeAgoFr = require('timeago.js/locales/fr')
 
 // core
 const url = require('url')
 
-// TimeAgo.register('fr', timeAgoFr)
-// const ago = new TimeAgo(Date.now(), 'fr')
-// const ago = new TimeAgo()
 const reserved = ['contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
 exports.register = (server, options, next) => {
@@ -116,7 +111,6 @@ exports.register = (server, options, next) => {
           }
         } else {
           tpl = 'front'
-          // obj.ago = ago.format
         }
       } else {
         return reply.notImplemented('What\'s that?', payload)
