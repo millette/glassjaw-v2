@@ -1,6 +1,6 @@
 {
   "name": "glassjaw-v2",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Hapi demonstration",
   "main": "index.js",
   "scripts": {
