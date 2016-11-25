@@ -1,7 +1,7 @@
 <div class="column">
 <form method="post">
   <% if (data.doc.img) { %>
-    <a href="/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
+    <a href="/punch/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
   <% } else { %>
     <button name="punch" value="<%- data.doc._id %>">
     <p>
@@ -17,9 +17,9 @@
 
   <% } %>
   <% if (data.doc._attachments['top-image-3.jpeg']) { %>
-    <img src="/<%- data.doc._id %>/top-image-3.jpeg" alt="<%- data.doc.title || data.doc._id %>">
+    <img src="/punch/<%- data.doc._id %>/top-image-3.jpeg" alt="<%- data.doc.title || data.doc._id %>">
   <% } else if (data.doc._attachments['top-image-3.png']) { %>
-    <img src="/<%- data.doc._id %>/top-image-3.png" alt="<%- data.doc.title || data.doc._id %>">
+    <img src="/punch/<%- data.doc._id %>/top-image-3.png" alt="<%- data.doc.title || data.doc._id %>">
   <% } else if (data.doc.img) { %>
     <img src="<%- data.doc.img %>" alt="<%- data.doc.title || data.doc._id %>">
   <% } else { %>

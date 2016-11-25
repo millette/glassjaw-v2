@@ -11,7 +11,7 @@ const marked = require('marked')
 // core
 const url = require('url')
 
-const reserved = ['contact', 'admin', 'new', 'user', 'css', 'js', 'img']
+const reserved = ['edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
 exports.register = (server, options, next) => {
   const dbUrl = url.resolve(options.db.url, options.db.name)
@@ -23,11 +23,18 @@ exports.register = (server, options, next) => {
     const view = pify(db.view, { multiArgs: true })
     view('app', 'menu', { reduce: false })
       .then((x) => {
-        const items = x[0].rows.map((r) => r.value)
+        const items = request.auth.credentials
+          ? x[0].rows
+            .map((r) => r.value)
+            .map((r) => {
+              //console.log(r.path)
+              r.path = '/punch' + r.path
+              return r
+            })
+          : []
         items.unshift({ path: '/', title: 'Accueil' })
-        if (request.auth.credentials) {
-          items.push({ path: '/admin', title: 'Admin' })
-        } else {
+        items.push({ path: '/admin', title: 'Admin' })
+        if (!request.auth.credentials) {
           items.push({ path: '/contact', title: 'Contact' })
         }
         return reply(items.map((item) => {
@@ -73,19 +80,29 @@ exports.register = (server, options, next) => {
     callback(null, dest, { accept: 'application/json' })
   }
 
-  const mapperImg = (request, callback) => callback(null, dbUrl + request.path)
+  const mapperImg = (request, callback) => {
+    // console.log(request.path)
+    // console.log(request.params)
+    // console.log(dbUrl)
+    // callback(null, dbUrl + request.path)
+    callback(null, [dbUrl, request.params.pathy, request.params.img].join('/'))
+  }
 
   const responder = (err, res, request, reply) => {
     if (err) { return reply(err) } // FIXME: how to test?
     if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
-    if (request.params.action && request.params.action !== 'edit') { return reply.notFound(request.params.action) }
+    // if (request.params.action && request.params.action !== 'edit') { return reply.notFound(request.params.action) }
 
     const go = (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
       let tpl
       let obj
       if (payload._id) {
-        if (request.params.action) {
+        // console.log('P2:', request.path)
+        const last = request.path.split('/').pop()
+        // console.log('P2:', request.path, last)
+        // if (request.params.action) {
+        if (last === 'edit') {
           tpl = 'edit-doc'
         } else {
           tpl = 'doc'
@@ -104,13 +121,18 @@ exports.register = (server, options, next) => {
             return d.doc
           })
         }
-        if (request.params.pathy) {
+        // if (request.params.pathy) {
+        if (request.path === '/admin') {
           tpl = 'admin'
           if (request.query.next) {
             obj.next = request.query.next.slice(1).split('/')
           }
         } else {
-          tpl = 'front'
+          if (request.auth.credentials) {
+            tpl = 'front'
+          } else {
+            tpl = 'visitor'
+          }
         }
       } else {
         return reply.notImplemented('What\'s that?', payload)
@@ -224,7 +246,7 @@ exports.register = (server, options, next) => {
       p = insert(request.payload)
     }
 
-    p.then((x) => reply.redirect('/' + x[0].id))
+    p.then((x) => reply.redirect('/punch/' + x[0].id))
       .catch((err) => reply.boom(err.statusCode, err))
   }
 
@@ -295,9 +317,10 @@ exports.register = (server, options, next) => {
 
   server.route({
     method: 'GET',
-    path: '/{pathy}',
+    path: '/admin',
     config: {
       pre: [{ assign: 'menu', method: menu }],
+      // auth: { mode: 'required' },
       handler: {
         proxy: {
           passThrough: true,
@@ -308,11 +331,29 @@ exports.register = (server, options, next) => {
     }
   })
 
+  server.route({
+    method: 'GET',
+    path: '/punch/{pathy}',
+    config: {
+      pre: [{ assign: 'menu', method: menu }],
+      auth: { mode: 'required' },
+      handler: {
+        proxy: {
+          passThrough: true,
+          mapUri: mapper,
+          onResponse: responder
+        }
+      }
+    }
+  })
+
+/*
   let r
   for (r = 1; r < 5; ++r) {
     server.route({
       method: 'GET',
-      path: `/{pathy}/top-image-${r}.jpeg`,
+      // path: `/punch/{pathy}/top-image-${r}.jpeg`,
+      path: `/punch/{pathy}/{img}`,
       config: {
         handler: {
           proxy: {
@@ -325,7 +366,7 @@ exports.register = (server, options, next) => {
 
     server.route({
       method: 'GET',
-      path: `/{pathy}/top-image-${r}.png`,
+      path: `/punch/{pathy}/top-image-${r}.png`,
       config: {
         handler: {
           proxy: {
@@ -336,11 +377,14 @@ exports.register = (server, options, next) => {
       }
     })
   }
+*/
 
   server.route({
     method: 'GET',
-    path: '/{pathy}/top-image.jpeg',
+    // path: '/punch/{pathy}/top-image.jpeg',
+    path: `/punch/{pathy}/{img}`,
     config: {
+      auth: { mode: 'required' },
       handler: {
         proxy: {
           passThrough: true,
@@ -350,9 +394,10 @@ exports.register = (server, options, next) => {
     }
   })
 
+/*
   server.route({
     method: 'GET',
-    path: '/{pathy}/top-image.png',
+    path: '/punch/{pathy}/top-image.png',
     config: {
       handler: {
         proxy: {
@@ -362,10 +407,12 @@ exports.register = (server, options, next) => {
       }
     }
   })
+*/
 
   server.route({
     method: 'GET',
-    path: '/{pathy}/{action}',
+    // path: '/punch/{pathy}/{action}',
+    path: '/punch/{pathy}/edit',
     config: {
       pre: [{ assign: 'menu', method: menu }],
       auth: { mode: 'required' },
@@ -381,7 +428,8 @@ exports.register = (server, options, next) => {
 
   server.route({
     method: 'POST',
-    path: '/{pathy}/{action}',
+    // path: '/punch/{pathy}/{action}',
+    path: '/punch/{pathy}/edit',
     config: {
       pre: [ { method: getDoc, assign: 'm1' } ],
       auth: { mode: 'required' },

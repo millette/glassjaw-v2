@@ -23,8 +23,8 @@ const manifest = {
       plugin: {
         options: {
           db: {
-            url: Config.get('/db/url'),
-            name: Config.get('/db/name')
+            // name: Config.get('/db/name'),
+            url: Config.get('/db/url')
           },
           cookie: {
             password: Config.get('/cookie/password'),
