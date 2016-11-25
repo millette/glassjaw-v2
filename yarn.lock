@@ -1404,6 +1404,17 @@ hapi-context-credentials@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/hapi-context-credentials/-/hapi-context-credentials-2.0.0.tgz#bc0093c128a94ed6a4aac57614eea16065c71224"
 
+hapi-couchdb-login@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/hapi-couchdb-login/-/hapi-couchdb-login-0.1.0.tgz#03d82165e75ecc0a1fafd8b2531fb4ea8276c9fd"
+  dependencies:
+    boom "^4.2.0"
+    cloudant-nano "^6.4.1"
+    hapi-auth-cookie "^6.1.1"
+    hapi-boom-decorators "^2.1.0"
+    lodash "^4.17.2"
+    pify "^2.3.0"
+
 hapi-error@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/hapi-error/-/hapi-error-1.6.0.tgz#2935eaa92cc5a9c0bb9ec7575891bea4ede34c08"
@@ -2056,7 +2067,7 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@^4.0.0, lodash@^4.16.4, lodash@^4.16.6, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.16.4, lodash@^4.16.6, lodash@^4.17.2, lodash@^4.3.0:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 

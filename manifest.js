@@ -31,7 +31,7 @@ const manifest = {
             secure: Config.get('/cookie/secure')
           }
         },
-        register: './plugins/login/index'
+        register: 'hapi-couchdb-login'
       },
       options: { routes: { prefix: '/user' } }
     },
