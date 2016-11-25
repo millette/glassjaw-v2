@@ -273,7 +273,7 @@ exports.register = (server, options, next) => {
 
   server.route({
     method: 'GET',
-    path: '/new',
+    path: '/punch/new',
     config: {
       auth: { mode: 'required' },
       pre: [{ assign: 'menu', method: menu }],
@@ -283,7 +283,7 @@ exports.register = (server, options, next) => {
 
   server.route({
     method: 'POST',
-    path: '/new',
+    path: '/punch/new',
     config: {
       auth: { mode: 'required' },
       handler: editDoc
