@@ -28,6 +28,7 @@
     "couchdb-push": "^2.3.2",
     "dotenv-safe": "^3.0.0",
     "glue": "4.x.x",
+    "got": "^6.6.3",
     "h2o2": "AVVS/h2o2",
     "hapi": "15.x.x",
     "hapi-auth-cookie": "^6.1.1",

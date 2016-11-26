@@ -4,6 +4,8 @@
 
 module.exports = {
   map: function (doc) {
+    const parts = doc._id.split(':')
+    if (parts.length !== 2) { return }
     const obj = { path: '/' + doc._id }
     const weight = doc.weight ? parseInt(doc.weight, 10) : 999
     if (doc.menu_title) {
@@ -20,7 +22,7 @@ module.exports = {
         obj.img = obj.path + '/top-image-1.png'
       }
     }
-    emit(weight, obj)
+    emit([parts[0], weight], obj)
   },
   reduce: '_count'
 }

@@ -13,7 +13,7 @@ const defFalse = {
 
 const config = {
   $meta: 'This file configures GlassJaw.',
-  projectName: 'docza',
+  projectName: 'glassjaw-v2',
   app: { siteTitle: process.env.SITETITLE },
   db: {
     url: process.env.DBURL,

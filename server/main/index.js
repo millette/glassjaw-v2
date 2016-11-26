@@ -10,8 +10,22 @@ const marked = require('marked')
 
 // core
 const url = require('url')
+const qs = require('querystring')
 
 const reserved = ['edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
+
+const makeOpts = (name, docs, noEnd) => {
+  const opts = { startkey: [name], reduce: false }
+  if (!noEnd) { opts.endkey = [name, '\ufff0'] }
+  if (docs) { opts.include_docs = true }
+  return opts
+}
+
+const jsonOpts = (opts) => {
+  if (opts.startkey) { opts.startkey = JSON.stringify(opts.startkey) }
+  if (opts.endkey) { opts.endkey = JSON.stringify(opts.endkey) }
+  return qs.stringify(opts)
+}
 
 exports.register = (server, options, next) => {
   const dbUrl = url.resolve(options.db.url, options.db.name)
@@ -19,15 +33,13 @@ exports.register = (server, options, next) => {
   const menu = function (request, reply) {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
-
     const view = pify(db.view, { multiArgs: true })
-    view('app', 'menu', { reduce: false })
+    view('app', 'menu', makeOpts('millette'))
       .then((x) => {
         const items = request.auth.credentials
           ? x[0].rows
             .map((r) => r.value)
             .map((r) => {
-              //console.log(r.path)
               r.path = '/punch' + r.path
               return r
             })
@@ -75,16 +87,12 @@ exports.register = (server, options, next) => {
       dest = it.join('/')
     } else {
       it.push('_design/app/_view/menu')
-      dest = it.join('/') + '?include_docs=true&reduce=false'
+      dest = it.join('/') + '?' + jsonOpts(makeOpts('millette', true))
     }
     callback(null, dest, { accept: 'application/json' })
   }
 
   const mapperImg = (request, callback) => {
-    // console.log(request.path)
-    // console.log(request.params)
-    // console.log(dbUrl)
-    // callback(null, dbUrl + request.path)
     callback(null, [dbUrl, request.params.pathy, request.params.img].join('/'))
   }
 
@@ -98,10 +106,7 @@ exports.register = (server, options, next) => {
       let tpl
       let obj
       if (payload._id) {
-        // console.log('P2:', request.path)
         const last = request.path.split('/').pop()
-        // console.log('P2:', request.path, last)
-        // if (request.params.action) {
         if (last === 'edit') {
           tpl = 'edit-doc'
         } else {
@@ -121,7 +126,6 @@ exports.register = (server, options, next) => {
             return d.doc
           })
         }
-        // if (request.params.pathy) {
         if (request.path === '/admin') {
           tpl = 'admin'
           if (request.query.next) {
@@ -148,7 +152,6 @@ exports.register = (server, options, next) => {
   const getDoc = function (request, reply) {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
-
     const get = pify(db.get, { multiArgs: true })
     get(request.payload.punch || request.params.pathy)
       .then((x) => {
@@ -156,7 +159,6 @@ exports.register = (server, options, next) => {
         if (doc.weight && typeof doc.weight === 'string') {
           doc.weight = parseFloat(doc.weight)
         }
-
         reply(doc)
       })
       .catch(reply)
@@ -172,7 +174,6 @@ exports.register = (server, options, next) => {
     doc.punches.push(punch)
     const db = nano({ url: dbUrl, cookie: request.auth.credentials.cookie })
     const insert = pify(db.insert, { multiArgs: true })
-
     insert(doc)
       .then((a) => {
         reply.redirect(request.payload.next || '/')
@@ -347,41 +348,8 @@ exports.register = (server, options, next) => {
     }
   })
 
-/*
-  let r
-  for (r = 1; r < 5; ++r) {
-    server.route({
-      method: 'GET',
-      // path: `/punch/{pathy}/top-image-${r}.jpeg`,
-      path: `/punch/{pathy}/{img}`,
-      config: {
-        handler: {
-          proxy: {
-            passThrough: true,
-            mapUri: mapperImg
-          }
-        }
-      }
-    })
-
-    server.route({
-      method: 'GET',
-      path: `/punch/{pathy}/top-image-${r}.png`,
-      config: {
-        handler: {
-          proxy: {
-            passThrough: true,
-            mapUri: mapperImg
-          }
-        }
-      }
-    })
-  }
-*/
-
   server.route({
     method: 'GET',
-    // path: '/punch/{pathy}/top-image.jpeg',
     path: `/punch/{pathy}/{img}`,
     config: {
       auth: { mode: 'required' },
@@ -394,24 +362,8 @@ exports.register = (server, options, next) => {
     }
   })
 
-/*
   server.route({
     method: 'GET',
-    path: '/punch/{pathy}/top-image.png',
-    config: {
-      handler: {
-        proxy: {
-          passThrough: true,
-          mapUri: mapperImg
-        }
-      }
-    }
-  })
-*/
-
-  server.route({
-    method: 'GET',
-    // path: '/punch/{pathy}/{action}',
     path: '/punch/{pathy}/edit',
     config: {
       pre: [{ assign: 'menu', method: menu }],
@@ -428,7 +380,6 @@ exports.register = (server, options, next) => {
 
   server.route({
     method: 'POST',
-    // path: '/punch/{pathy}/{action}',
     path: '/punch/{pathy}/edit',
     config: {
       pre: [ { method: getDoc, assign: 'm1' } ],
