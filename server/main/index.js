@@ -14,7 +14,6 @@ const qs = require('querystring')
 
 const reserved = ['edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
-// const makeOpts = (name, docs, noEnd) => {
 const makeOpts = (request, docs, noEnd) => {
   const name = request.auth.credentials && request.auth.credentials.name || ''
   const opts = { startkey: [name], reduce: false }
@@ -36,15 +35,12 @@ exports.register = (server, options, next) => {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
     const view = pify(db.view, { multiArgs: true })
-    // view('app', 'menu', makeOpts('millette'))
-    // view('app', 'menu', makeOpts(request.auth.credentials.name))
     view('app', 'menu', makeOpts(request))
       .then((x) => {
         const items = request.auth.credentials
           ? x[0].rows
             .map((r) => r.value)
             .map((r) => {
-              // r.path = '/punch' + r.path
               r.path = '/punch/' + r.path.split(':')[1]
               return r
             })
@@ -88,26 +84,22 @@ exports.register = (server, options, next) => {
     const it = [dbUrl]
     let dest
     if (request.params.pathy && request.params.pathy !== 'admin') {
-      it.push('millette:' + request.params.pathy)
-      console.log('PUSH:', request.params.pathy)
+      it.push(request.auth.credentials.name + ':' + request.params.pathy)
       dest = it.join('/')
     } else {
       it.push('_design/app/_view/menu')
-      // dest = it.join('/') + '?' + jsonOpts(makeOpts('millette', true))
-      // dest = it.join('/') + '?' + jsonOpts(makeOpts(request.auth.credentials.name, true))
       dest = it.join('/') + '?' + jsonOpts(makeOpts(request, true))
     }
     callback(null, dest, { accept: 'application/json' })
   }
 
   const mapperImg = (request, callback) => {
-    callback(null, [dbUrl, request.params.pathy, request.params.img].join('/'))
+    callback(null, [dbUrl, request.auth.credentials.name + ':' + request.params.pathy, request.params.img].join('/'))
   }
 
   const responder = (err, res, request, reply) => {
     if (err) { return reply(err) } // FIXME: how to test?
     if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
-    // if (request.params.action && request.params.action !== 'edit') { return reply.notFound(request.params.action) }
 
     const go = (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
@@ -122,6 +114,7 @@ exports.register = (server, options, next) => {
           payload.content = marked(payload.content)
         }
         if (!payload._attachments) { payload._attachments = [] }
+        payload._id = payload._id.split(':')[1]
         obj = { menu: request.pre.menu, doc: payload }
       } else if (payload.rows) {
         obj = {
@@ -130,6 +123,7 @@ exports.register = (server, options, next) => {
             if (d.doc.content) {
               d.doc.content = marked(truncate(d.doc.content, options.teaser.length, { keepImageTag: true }))
             }
+            d.doc._id = d.doc._id.split(':')[1]
             if (!d.doc._attachments) { d.doc._attachments = [] }
             return d.doc
           })
@@ -161,7 +155,7 @@ exports.register = (server, options, next) => {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
     const get = pify(db.get, { multiArgs: true })
-    get(request.payload.punch || request.params.pathy)
+    get(request.auth.credentials.name + ':' + (request.payload.punch || request.params.pathy))
       .then((x) => {
         const doc = x[0]
         if (doc.weight && typeof doc.weight === 'string') {
@@ -198,7 +192,7 @@ exports.register = (server, options, next) => {
 
   const editDoc = function (request, reply) {
     if (reserved.indexOf(request.payload.id) !== -1) { return reply.forbidden('The provided field "id" is unacceptable.', { reserved: reserved }) }
-    request.payload._id = request.payload.id
+    request.payload._id = request.auth.credentials.name + ':' + request.payload.id
     delete request.payload.id
 
     if (request.payload.rev) {
@@ -255,7 +249,7 @@ exports.register = (server, options, next) => {
       p = insert(request.payload)
     }
 
-    p.then((x) => reply.redirect('/punch/' + x[0].id))
+    p.then((x) => reply.redirect('/punch/' + x[0].id.split(':')[1]))
       .catch((err) => reply.boom(err.statusCode, err))
   }
 
@@ -329,7 +323,6 @@ exports.register = (server, options, next) => {
     path: '/admin',
     config: {
       pre: [{ assign: 'menu', method: menu }],
-      // auth: { mode: 'required' },
       handler: {
         proxy: {
           passThrough: true,
