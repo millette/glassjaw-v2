@@ -1,7 +1,7 @@
 <%= partials.head(data) %>
 <h2>Gestion du site</h2>
 <% if (data.credentials) { %>
-  <p><a class="button hollow" href="new">Créer un document</a></p>
+  <p><a class="button hollow" href="/punch/new">Créer un document</a></p>
   <% _(data.docs).each((doc, i) => { %>
     <%= partials['doc-admin']({ edit: true, doc: doc, i: i }) %>
   <% }) %>
