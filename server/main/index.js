@@ -14,7 +14,9 @@ const qs = require('querystring')
 
 const reserved = ['edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
-const makeOpts = (name, docs, noEnd) => {
+// const makeOpts = (name, docs, noEnd) => {
+const makeOpts = (request, docs, noEnd) => {
+  const name = request.auth.credentials && request.auth.credentials.name || ''
   const opts = { startkey: [name], reduce: false }
   if (!noEnd) { opts.endkey = [name, '\ufff0'] }
   if (docs) { opts.include_docs = true }
@@ -34,13 +36,16 @@ exports.register = (server, options, next) => {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
     const view = pify(db.view, { multiArgs: true })
-    view('app', 'menu', makeOpts('millette'))
+    // view('app', 'menu', makeOpts('millette'))
+    // view('app', 'menu', makeOpts(request.auth.credentials.name))
+    view('app', 'menu', makeOpts(request))
       .then((x) => {
         const items = request.auth.credentials
           ? x[0].rows
             .map((r) => r.value)
             .map((r) => {
-              r.path = '/punch' + r.path
+              // r.path = '/punch' + r.path
+              r.path = '/punch/' + r.path.split(':')[1]
               return r
             })
           : []
@@ -83,11 +88,14 @@ exports.register = (server, options, next) => {
     const it = [dbUrl]
     let dest
     if (request.params.pathy && request.params.pathy !== 'admin') {
-      it.push(request.params.pathy)
+      it.push('millette:' + request.params.pathy)
+      console.log('PUSH:', request.params.pathy)
       dest = it.join('/')
     } else {
       it.push('_design/app/_view/menu')
-      dest = it.join('/') + '?' + jsonOpts(makeOpts('millette', true))
+      // dest = it.join('/') + '?' + jsonOpts(makeOpts('millette', true))
+      // dest = it.join('/') + '?' + jsonOpts(makeOpts(request.auth.credentials.name, true))
+      dest = it.join('/') + '?' + jsonOpts(makeOpts(request, true))
     }
     callback(null, dest, { accept: 'application/json' })
   }
