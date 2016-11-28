@@ -12,7 +12,7 @@ const marked = require('marked')
 const url = require('url')
 const qs = require('querystring')
 
-const reserved = ['edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
+const reserved = ['a-propos', 'vie-privee', 'edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
 const makeOpts = (request, docs, noEnd) => {
   const name = request.auth.credentials && request.auth.credentials.name || ''
@@ -47,6 +47,8 @@ exports.register = (server, options, next) => {
           : []
         items.unshift({ path: '/', title: 'Accueil' })
         items.push({ path: '/admin', title: 'Admin' })
+        items.push({ path: '/a-propos', title: 'À propos' })
+        items.push({ path: '/vie-privee', title: 'Vie privée' })
         if (!request.auth.credentials) {
           items.push({ path: '/contact', title: 'Contact' })
         }
@@ -188,6 +190,14 @@ exports.register = (server, options, next) => {
 
   const newDoc = function (request, reply) {
     reply.view('new-doc', { doc: { _attachments: [] }, menu: request.pre.menu })
+  }
+
+  const viePrivee = function (request, reply) {
+    reply.view('vie-privee', { menu: request.pre.menu })
+  }
+
+  const aPropos = function (request, reply) {
+    reply.view('a-propos', { menu: request.pre.menu })
   }
 
   const editDoc = function (request, reply) {
@@ -386,6 +396,25 @@ exports.register = (server, options, next) => {
       pre: [ { method: getDoc, assign: 'm1' } ],
       auth: { mode: 'required' },
       handler: editDoc
+    }
+  })
+
+
+  server.route({
+    method: 'GET',
+    path: '/vie-privee',
+    config: {
+      pre: [{ assign: 'menu', method: menu }],
+      handler: viePrivee
+    }
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/a-propos',
+    config: {
+      pre: [{ assign: 'menu', method: menu }],
+      handler: aPropos
     }
   })
 
