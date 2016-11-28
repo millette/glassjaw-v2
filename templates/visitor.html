@@ -1,48 +1,48 @@
 <%= partials.head(data) %>
 <div class="row">
-<div class="column small-10 small-offset-1 medium-10 medium-offset-1 large-12 large-offset-0">
-<div class="row column">
-<p class="lead">Bienvenue sur GlassJaw! Vous voulez <b>prendre de bonnes
-habitudes</b> et vous <b>débarasser des mauvaises</b>? Ce service est pour vous!</p>
-<div class="row">
-<div class="column medium-5 large-4">
-  <div class="callout secondary">
-    <h4>GlassJaw:</h4>
-    <ol>
-      <li>Créez votre compte</li>
-      <li>Créez votre premier <i>punch</i></li>
-      <li><i>Punchez!</i></li>
-    </ol>
-    <a class="button warning expanded" href="/a-propos">En savoir plus</a>
+  <div class="column small-10 small-offset-1 medium-10 medium-offset-1 large-12 large-offset-0">
+    <div class="row column">
+      <p class="lead">Bienvenue sur GlassJaw! Vous voulez <b>prendre de bonnes
+      habitudes</b> et vous <b>débarasser des mauvaises</b>? Ce service est pour vous!</p>
+      <div class="row">
+        <div class="column medium-5 large-4">
+          <div class="callout secondary">
+            <h4>GlassJaw:</h4>
+            <ol>
+              <li>Créez votre compte</li>
+              <li>Créez votre premier <i>punch</i></li>
+              <li><i>Punchez!</i></li>
+            </ol>
+            <a class="button warning expanded" href="/a-propos">En savoir plus</a>
+          </div>
+          <div class="callout alert">
+            <h4>Vie privée</h4>
+            <p>Toutes les informations demeurent privées et seulement accessibles
+            au détenteur du compte.</p>
+            <a class="button alert expanded" href="/vie-privee">En savoir plus</a>
+          </div>
+        </div>
+        <div class="column medium-7 large-8">
+          <div class="callout">
+            <h3>Créez votre compte</h3>
+            <form method="post">
+              <input type="text" name="name" placeholder="nom d'utilisateur" required>
+              <input type="email" name="email" placeholder="email (optionnel)">
+              <input type="text" name="password" placeholder="mot de passe" required>
+              <input type="text" name="password2" placeholder="répétez le mot de passe" required>
+              <input type="text" name="invitation" placeholder="code d'invitation (optionnel)">
+              <input type="submit" value="Créez votre compte" class="button large secondary expanded">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row column">
+        <ul>
+          <li><a href="/admin">Admin (login)</a></li>
+          <li><a href="/contact">Contactez nous</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="callout alert">
-    <h4>Vie privée</h4>
-    <p>Toutes les informations demeurent privées et seulement accessibles
-    au détenteur du compte.</p>
-    <a class="button alert expanded" href="/vie-privee">En savoir plus</a>
-  </div>
-</div>
-<div class="column medium-7 large-8">
-  <div class="callout">
-    <h3>Créez votre compte</h3>
-    <form method="post">
-      <input type="text" name="name" placeholder="nom d'utilisateur" required>
-      <input type="email" name="email" placeholder="email (optionnel)">
-      <input type="text" name="password" placeholder="mot de passe" required>
-      <input type="text" name="password2" placeholder="répétez le mot de passe" required>
-      <input type="text" name="invitation" placeholder="code d'invitation (optionnel)">
-      <input type="submit" value="Créez votre compte" class="button large secondary expanded">
-    </form>
-  </div>
-</div>
-</div>
-<div class="row column">
-<ul>
-<li><a href="/admin">Admin (login)</a></li>
-<li><a href="/contact">Contactez nous</a></li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 <%= partials.foot(data) %>
