@@ -7,9 +7,7 @@ const criteria = { env: process.env.NODE_ENV }
 const manifest = {
   $meta: 'This file defines GlassJaw.',
   server: {
-    app: {
-      siteTitle: Config.get('/app/siteTitle')
-    },
+    app: { siteTitle: Config.get('/app/siteTitle') },
     cache: 'catbox-redis',
     debug: { log: ['error'] },
     connections: { routes: { security: true } }
@@ -22,10 +20,7 @@ const manifest = {
     {
       plugin: {
         options: {
-          db: {
-            // name: Config.get('/db/name'),
-            url: Config.get('/db/url')
-          },
+          db: { url: Config.get('/db/url') },
           cookie: {
             password: Config.get('/cookie/password'),
             secure: Config.get('/cookie/secure')
