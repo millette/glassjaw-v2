@@ -46,11 +46,11 @@ exports.register = (server, options, next) => {
             })
           : []
         items.unshift({ path: '/', title: 'Accueil' })
-        items.push({ path: '/admin', title: 'Admin' })
         items.push({ path: '/a-propos', title: 'À propos' })
         items.push({ path: '/vie-privee', title: 'Vie privée' })
-        if (!request.auth.credentials) {
-          items.push({ path: '/contact', title: 'Contact' })
+        items.push({ path: '/contact', title: 'Contact' })
+        if (request.auth.credentials) {
+          items.push({ path: '/admin', title: 'Admin' })
         }
         return reply(items.map((item) => {
           item.active = item.path === request.path
@@ -333,6 +333,7 @@ exports.register = (server, options, next) => {
     path: '/admin',
     config: {
       pre: [{ assign: 'menu', method: menu }],
+      auth: { mode: 'required' },
       handler: {
         proxy: {
           passThrough: true,
