@@ -1405,9 +1405,9 @@ graceful-fs@^4.1.2:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-h2o2@AVVS/h2o2:
+h2o2@^5.4.0:
   version "5.4.0"
-  resolved "https://codeload.github.com/AVVS/h2o2/tar.gz/738bb2d789e4569845d6d4c265a2523a0b823cf4"
+  resolved "https://registry.yarnpkg.com/h2o2/-/h2o2-5.4.0.tgz#d6857ca05355200c890b34a66606caba0229ed58"
   dependencies:
     boom "3.X.X"
     hoek "4.X.X"
