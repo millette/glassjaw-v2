@@ -57,10 +57,7 @@ exports.register = (server, options, next) => {
           return item
         }))
       })
-      .catch((e) => {
-        console.log('EEEEE:', e)
-        reply(e)
-      })
+      .catch(reply)
   }
 
   const mapperContact = (request, callback) => {
@@ -157,12 +154,11 @@ exports.register = (server, options, next) => {
     const db = nano({ url: dbUrl })
     if (request.auth.credentials && request.auth.credentials.cookie) { db.cookie = request.auth.credentials.cookie }
     const get = pify(db.get, { multiArgs: true })
-    get(request.auth.credentials.name + ':' + (request.payload.punch || request.params.pathy))
+    const docId = request.auth.credentials.name + ':' + ((request.payload && request.payload.punch) || request.params.pathy)
+    get(docId)
       .then((x) => {
         const doc = x[0]
-        if (doc.weight && typeof doc.weight === 'string') {
-          doc.weight = parseFloat(doc.weight)
-        }
+        if (doc.weight && typeof doc.weight === 'string') { doc.weight = parseFloat(doc.weight) }
         reply(doc)
       })
       .catch(reply)
@@ -182,10 +178,7 @@ exports.register = (server, options, next) => {
       .then((a) => {
         reply.redirect(request.payload.next || '/')
       })
-      .catch((err) => {
-        console.log('ERR:', err)
-        reply(err)
-      })
+      .catch(reply)
   }
 
   const newDoc = function (request, reply) {
@@ -194,6 +187,12 @@ exports.register = (server, options, next) => {
 
   const viePrivee = function (request, reply) {
     reply.view('vie-privee', { menu: request.pre.menu })
+  }
+
+  const ajax = function (request, reply) {
+    const doc = request.pre.m1
+    doc._id = doc._id.split(':')[1]
+    reply.view('ajax', { doc: doc })
   }
 
   const aPropos = function (request, reply) {
@@ -406,6 +405,16 @@ exports.register = (server, options, next) => {
     config: {
       pre: [{ assign: 'menu', method: menu }],
       handler: viePrivee
+    }
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/ajax/{pathy}',
+    config: {
+      pre: [ { method: getDoc, assign: 'm1' } ],
+      auth: { mode: 'required' },
+      handler: ajax
     }
   })
 
