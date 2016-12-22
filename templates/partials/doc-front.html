@@ -14,7 +14,6 @@
       Jamais punché
     <% } %>
     </p>
-
   <% } %>
   <% if (data.doc._attachments['top-image-3.jpeg']) { %>
     <img src="/punch/<%- data.doc._id %>/top-image-3.jpeg" alt="<%- data.doc.title || data.doc._id %>">
@@ -30,7 +29,7 @@
   <% } else { %>
     </button>
     <% if (data.doc.punch_comment) { %>
-      <input type="text" placeholder="comment" name="comment">
+      <input type="text" placeholder="comment" name="comment" required>
     <% } %>
   <% } %>
 </form>
