@@ -90,12 +90,10 @@ exports.register = (server, options, next) => {
   const responderPunches = (err, res, request, reply) => {
     if (err) { return reply(err) } // FIXME: how to test?
     if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
-    const go = (err, payload) => {
-      console.log('err:', err)
-      console.log('pl:', payload)
-      reply(payload.punches)
-    }
-    Wreck.read(res, { json: true }, go)
+    Wreck.read(res, { json: true }, (err, payload) => {
+      if (err) { return reply(err) } // FIXME: how to test?
+      reply(payload.punches).etag(payload._rev)
+    })
   }
 
   const mapper = (request, callback) => {
