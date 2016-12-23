@@ -79,6 +79,25 @@ exports.register = (server, options, next) => {
     reply.view('contact', { menu: request.pre.menu })
   }
 
+  const mapperPunches = (request, callback) => {
+    const it = [dbUrl]
+    let dest
+    it.push(request.auth.credentials.name + ':' + request.params.pathy)
+    dest = it.join('/')
+    callback(null, dest, { accept: 'application/json' })
+  }
+
+  const responderPunches = (err, res, request, reply) => {
+    if (err) { return reply(err) } // FIXME: how to test?
+    if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
+    const go = (err, payload) => {
+      console.log('err:', err)
+      console.log('pl:', payload)
+      reply(payload.punches)
+    }
+    Wreck.read(res, { json: true }, go)
+  }
+
   const mapper = (request, callback) => {
     const it = [dbUrl]
     let dest
@@ -111,6 +130,13 @@ exports.register = (server, options, next) => {
         } else {
           tpl = 'doc'
           payload.content = marked(payload.content)
+          payload.punchInfo = payload.punches
+            .reverse()
+            .slice(0, 10)
+            .map((x) => {
+              x.timestr = new Date(x.datetime).toString()
+              return x
+            })
         }
         if (!payload._attachments) { payload._attachments = [] }
         payload._id = payload._id.split(':')[1]
@@ -385,6 +411,21 @@ exports.register = (server, options, next) => {
           passThrough: true,
           mapUri: mapper,
           onResponse: responder
+        }
+      }
+    }
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/punch/{pathy}/punches.json',
+    config: {
+      auth: { mode: 'required' },
+      handler: {
+        proxy: {
+          onResponse: responderPunches,
+          passThrough: true,
+          mapUri: mapperPunches
         }
       }
     }
