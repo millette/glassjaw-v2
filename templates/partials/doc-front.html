@@ -7,9 +7,9 @@
     <p>
     <% if (data.doc.punches && data.doc.punches.length) { %>
         Punché
-        <span class="timeago" datetime="<%- data.doc.punches[data.doc.punches.length - 1].datetime %>">
+        <time class="timeago" datetime="<%- data.doc.punches[data.doc.punches.length - 1].datetime %>">
           <%- data.doc.punches[data.doc.punches.length - 1].datetime.replace('T', ' ') %>
-        </span>
+        </time>
     <% } else { %>
       Jamais punché
     <% } %>
