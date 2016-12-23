@@ -12,20 +12,24 @@ $(function () {
   $(document).foundation()
   var timeagoInstance = new timeago() // eslint-disable-line new-cap
 
-  // FIXME: timer is really taking lots of CPU on Firefox (with jQuery)
-  // https://github.com/hustcc/timeago.js/issues/98
   var renderTime = function (cancel) {
     var $timeago = $('.timeago')
     var r
     if (cancel) { timeagoInstance.cancel() }
-    for (r = 0; r < $timeago.length; ++r) {
-      // timeagoInstance.render($timeago[r], 'fr')
-      // only use timer when time is less than 8h ago
-      if (Date.now() - Date.parse($timeago[r].dateTime) < 28800000) {
-        timeagoInstance.render($timeago[r], 'fr')
-      } else {
-        $timeago[r].innerHTML = timeagoInstance.format($timeago[r].dateTime, 'fr')
+    // https://github.com/hustcc/timeago.js/issues/98
+    // High CPU usage with jQuery 2.2.2
+    if ($.fn.jquery < '2.2.4') {
+      for (r = 0; r < $timeago.length; ++r) {
+        // timeagoInstance.render($timeago[r], 'fr')
+        // only use timer when time is less than 8h ago
+        if (Date.now() - Date.parse($timeago[r].dateTime) < 28800000) {
+          timeagoInstance.render($timeago[r], 'fr')
+        } else {
+          $timeago[r].innerHTML = timeagoInstance.format($timeago[r].dateTime, 'fr')
+        }
       }
+    } else {
+      timeagoInstance.render($timeago, 'fr')
     }
   }
 
