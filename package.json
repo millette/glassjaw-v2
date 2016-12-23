@@ -27,7 +27,7 @@
     "confidence": "^3.0.2",
     "couchdb-push": "^2.3.2",
     "dotenv-safe": "^3.0.0",
-    "glue": "^4.0.0",
+    "glue": "^4.1.0",
     "h2o2": "^5.4.0",
     "hapi": "^16.0.2",
     "hapi-auth-cookie": "^6.1.1",
