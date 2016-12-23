@@ -1,38 +1,65 @@
 /* global $, timeago */
 
+/**
+ * TODO
+ * ----
+ * * Replace next argument with xmlhttprequest detection
+ * * Don't redirect on ajax post, but reply with proper template
+ * * Remove /ajax/XX route
+ */
+
 $(function () {
   $(document).foundation()
-  var Timeago = timeago
-  var timeagoInstance = new Timeago()
-  timeagoInstance.render($('.timeago'), 'fr')
+  var timeagoInstance = new timeago() // eslint-disable-line new-cap
 
-  $('.row.front')
-    .on('submit', '.column > form[method="post"]', function (ev) {
-      var $this = $(this)
-      var data = $this.serializeArray()
-      var $punchButton = $('button[name="punch"]', $this)
-      var punch
-      var obj
-      var $here = $this.parents('.column')
-      ev.preventDefault()
+  // FIXME: timer is really taking lots of CPU on Firefox (with jQuery)
+  // https://github.com/hustcc/timeago.js/issues/98
+  var renderTime = function (cancel) {
+    var $timeago = $('.timeago')
+    var r
+    if (cancel) { timeagoInstance.cancel() }
+    for (r = 0; r < $timeago.length; ++r) {
+      // timeagoInstance.render($timeago[r], 'fr')
+      // only use timer when time is less than 8h ago
+      if (Date.now() - Date.parse($timeago[r].dateTime) < 28800000) {
+        timeagoInstance.render($timeago[r], 'fr')
+      } else {
+        $timeago[r].innerHTML = timeagoInstance.format($timeago[r].dateTime, 'fr')
+      }
+    }
+  }
 
-      // make sure we've got the proper form
-      if ($punchButton.length !== 1) { return window.console.error('missing punch id') }
-      if (data.length > 1) { return window.console.error('wrong form size') }
-      if (data[0] && data[0].name !== 'comment') { return window.console.error('missing comment') }
-      if (data[0] && !data[0].value) { return window.console.error('missing comment value') }
+  if ($('.row.front').length) {
+    renderTime()
 
-      punch = $punchButton.val()
-      // setup object with punch id and comment
-      obj = { punch: punch, next: '/ajax' + '/' + punch }
-      if (data[0]) { obj.comment = data[0].value }
+    $('.row.front')
+      .on('submit', '.column > form[method="post"]', function (ev) {
+        var $this = $(this)
+        var data = $this.serializeArray()
+        var $punchButton = $('button[name="punch"]', $this)
+        var punch
+        var obj
+        var $here = $this.parents('.column')
+        ev.preventDefault()
 
-      // replace with new punch
-      $here
-        .addClass('punched')
-        .load('/', obj, function () {
-          timeagoInstance.render($('.timeago', $(this)), 'fr')
-          $here.removeClass('punched')
-        })
-    })
+        // make sure we've got the proper form
+        if ($punchButton.length !== 1) { return window.console.error('missing punch id') }
+        if (data.length > 1) { return window.console.error('wrong form size') }
+        if (data[0] && data[0].name !== 'comment') { return window.console.error('missing comment') }
+        if (data[0] && !data[0].value) { return window.console.error('missing comment value') }
+
+        punch = $punchButton.val()
+        // setup object with punch id and comment
+        obj = { punch: punch, next: '/ajax' + '/' + punch }
+        if (data[0]) { obj.comment = data[0].value }
+
+        // replace with new punch
+        $here
+          .addClass('punched')
+          .load('/', obj, function () {
+            renderTime(true)
+            $here.removeClass('punched')
+          })
+      })
+  }
 })
