@@ -9,15 +9,15 @@
  */
 
 $(function () {
-  $(document).foundation()
   var timeagoInstance = new timeago() // eslint-disable-line new-cap
+  var $vis = $('#vis')
 
   var renderTime = function (cancel) {
     var $timeago = $('.timeago')
     var r
     if (cancel) { timeagoInstance.cancel() }
     // https://github.com/hustcc/timeago.js/issues/98
-    // High CPU usage with jQuery 2.2.2
+    // High CPU usage with jQuery 2.2.2 (or not..??)
     if ($.fn.jquery < '2.2.4') {
       for (r = 0; r < $timeago.length; ++r) {
         // timeagoInstance.render($timeago[r], 'fr')
@@ -32,6 +32,38 @@ $(function () {
       timeagoInstance.render($timeago, 'fr')
     }
   }
+
+  var renderGraph = function () {
+    vg.embed($vis[0], {
+      mode: 'vega-lite',
+      // renderer: 'svg', // canvas by default
+      actions: false,
+      spec: {
+        description: 'A simple bar chart with embedded data.',
+        data: { url: ['/punch', $vis.data('src'), 'punches.json'].join('/') },
+        mark: 'circle',
+        encoding: {
+          y: {
+            field: 'datetime',
+            type: 'temporal',
+            timeUnit: 'day'
+          },
+          x: {
+            field: 'datetime',
+            type: 'temporal',
+            timeUnit: 'hours'
+          },
+          size: {
+            field: 'datetime',
+            type: 'quantitative',
+            aggregate: 'count'
+          }
+        }
+      }
+    })
+  }
+
+  $(document).foundation()
 
   if ($('.row.front').length) {
     renderTime()
@@ -66,4 +98,6 @@ $(function () {
           })
       })
   }
+
+  if ($vis.length) { renderGraph() }
 })
