@@ -192,6 +192,7 @@ exports.register = (server, options, next) => {
   const ajax = function (request, reply) {
     const doc = request.pre.m1
     doc._id = doc._id.split(':')[1]
+    if (!doc._attachments) { doc._attachments = [] }
     reply.view('ajax', { doc: doc })
   }
 
