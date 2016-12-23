@@ -1,6 +1,6 @@
 {
   "name": "glassjaw-v2",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Punch out your bad habits.",
   "main": "index.js",
   "scripts": {
