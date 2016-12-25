@@ -92,7 +92,7 @@ exports.register = (server, options, next) => {
     if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
     Wreck.read(res, { json: true }, (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
-      reply(payload.punches).etag(payload._rev)
+      reply(payload.punches || []).etag(payload._rev)
     })
   }
 
