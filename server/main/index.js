@@ -128,6 +128,7 @@ exports.register = (server, options, next) => {
         } else {
           tpl = 'doc'
           payload.content = marked(payload.content)
+          payload.punches = payload.punches || []
           payload.punchInfo = payload.punches
             .reverse()
             .slice(0, 10)
