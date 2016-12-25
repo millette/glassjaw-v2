@@ -1,4 +1,4 @@
-/* global $, timeago */
+/* global $, timeago, vg */
 
 /**
  * TODO
