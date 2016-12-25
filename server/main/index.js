@@ -128,14 +128,17 @@ exports.register = (server, options, next) => {
         } else {
           tpl = 'doc'
           payload.content = marked(payload.content)
-          payload.punches = payload.punches || []
-          payload.punchInfo = payload.punches
-            .reverse()
-            .slice(0, 10)
-            .map((x) => {
-              x.timestr = new Date(x.datetime).toString()
-              return x
-            })
+          if (payload.punches && payload.punches.length) {
+            payload.punchInfo = payload.punches
+              .reverse()
+              .slice(0, 10)
+              .map((x) => {
+                x.timestr = new Date(x.datetime).toString()
+                return x
+              })
+          } else {
+            payload.punchInfo = []
+          }
         }
         if (!payload._attachments) { payload._attachments = [] }
         payload._id = payload._id.split(':')[1]
