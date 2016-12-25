@@ -2,6 +2,7 @@
   "name": "glassjaw-v2",
   "version": "0.8.0",
   "description": "Punch out your bad habits.",
+  "license": "AGPL-3.0",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=prod && node server.js",
@@ -64,8 +65,7 @@
   },
   "standard": {
     "ignore": [
-      "assets/js/vendor",
-      "assets/js/vendor.js"
+      "assets/js/vendor"
     ]
   }
 }
