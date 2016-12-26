@@ -93,7 +93,14 @@ exports.register = (server, options, next) => {
     if (res.statusCode >= 400) { return reply.boom(res.statusCode, new Error(res.statusMessage)) }
     Wreck.read(res, { json: true }, (err, payload) => {
       if (err) { return reply(err) } // FIXME: how to test?
-      reply(payload.punches || []).etag(payload._rev)
+      let punches
+      if (payload.punches) {
+        const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000)
+        punches = payload.punches.filter((p) => Date.parse(p.datetime) > weekAgo)
+      } else {
+        punches = []
+      }
+      reply(punches).etag(payload._rev)
     })
   }
 
