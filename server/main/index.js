@@ -219,15 +219,15 @@ exports.register = (server, options, next) => {
   }
 
   const ajaxUndo = function (request, reply) {
-    // console.log('params:', request.params)
-    console.log('pre1:', request.pre)
-    // reply('oh, hi')
     request.pre.m1.punches.pop()
-    // got.put()
-    // got.put(dbUrl + id, { body: JSON.stringify(doc), json: true })
-
-    console.log('pre2:', request.pre)
-    reply.redirect('/ajax/' + request.params.pathy)
+    got.put(dbUrl + '/' + request.pre.m1._id, { body: JSON.stringify(request.pre.m1), json: true })
+      .then(() => {
+        reply.redirect('/ajax/' + request.params.pathy)
+      })
+      .catch((err) => {
+        console.log('err:', err)
+        reply.redirect('/ajax/' + request.params.pathy)
+      })
   }
 
   const ajax = function (request, reply) {
