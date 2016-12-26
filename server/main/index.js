@@ -1,5 +1,9 @@
 'use strict'
 
+// core
+const url = require('url')
+const qs = require('querystring')
+
 // npm
 const Wreck = require('wreck')
 const nano = require('cloudant-nano')
@@ -7,10 +11,7 @@ const pify = require('pify')
 const truncate = require('html-truncate')
 const sharp = require('sharp')
 const marked = require('marked')
-
-// core
-const url = require('url')
-const qs = require('querystring')
+const got = require('got')
 
 const reserved = ['a-propos', 'vie-privee', 'edit', 'punch', 'contact', 'admin', 'new', 'user', 'css', 'js', 'img']
 
@@ -215,6 +216,18 @@ exports.register = (server, options, next) => {
 
   const viePrivee = function (request, reply) {
     reply.view('vie-privee', { menu: request.pre.menu })
+  }
+
+  const ajaxUndo = function (request, reply) {
+    // console.log('params:', request.params)
+    console.log('pre1:', request.pre)
+    // reply('oh, hi')
+    request.pre.m1.punches.pop()
+    // got.put()
+    // got.put(dbUrl + id, { body: JSON.stringify(doc), json: true })
+
+    console.log('pre2:', request.pre)
+    reply.redirect('/ajax/' + request.params.pathy)
   }
 
   const ajax = function (request, reply) {
@@ -449,6 +462,16 @@ exports.register = (server, options, next) => {
     config: {
       pre: [{ assign: 'menu', method: menu }],
       handler: viePrivee
+    }
+  })
+
+  server.route({
+    method: 'POST',
+    path: '/undo/{pathy}',
+    config: {
+      pre: [ { method: getDoc, assign: 'm1' } ],
+      auth: { mode: 'required' },
+      handler: ajaxUndo
     }
   })
 

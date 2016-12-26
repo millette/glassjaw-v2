@@ -69,6 +69,17 @@ $(function () {
     renderTime()
 
     $('.row.front')
+      .on('click', 'button[name="undo"]', function (ev) {
+        var $this = $(this)
+        var $here = $this.parents('.column')
+        ev.preventDefault()
+        console.log('UNDO!!', $here, $this.val())
+        $here.load('/undo/' + $this.val(), {}, function () {
+          renderTime(true)
+          console.log('undid', this)
+        })
+        $this.remove()
+      })
       .on('submit', '.column > form[method="post"]', function (ev) {
         var $this = $(this)
         var data = $this.serializeArray()
@@ -93,7 +104,12 @@ $(function () {
         $here
           .addClass('punched')
           .load('/', obj, function () {
+            var $undo = $('<button class="button alert small expanded" name="undo" value="' + obj.punch + '">UNDO</button>')
             renderTime(true)
+            if (!$('button[name="undo"]', $here).length) {
+              $here.prepend($undo)
+              setTimeout(function () { $undo.remove() }, 30000)
+            }
             $here.removeClass('punched')
           })
       })
