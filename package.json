@@ -1,6 +1,6 @@
 {
   "name": "glassjaw-v2",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Punch out your bad habits.",
   "license": "AGPL-3.0",
   "main": "index.js",
