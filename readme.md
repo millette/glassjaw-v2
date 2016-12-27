@@ -5,8 +5,8 @@ pour une mise à jour importante.
 
 Install it:
 ```
-git clone https://github.com/millette/docza.git
-cd docza
+git clone https://github.com/millette/glassjaw-v2.git
+cd glassjaw-v2
 ```
 
 Install CouchDB:
@@ -106,15 +106,13 @@ yarn run test
 ### Web dependencies
 Uses [Foundation][] for its css.
 
-Uses [medium-editor][] for the wysiwyg editor.
-
 ### Server dependencies
 * [HapiJS][] (instead of express or koa)
 * [sharp][] (instead of ImageMagick)
 
 ### Project structure
 ```
-docza
+glassjaw-v2
 ├── assets
 │   ├── css
 │   │   └── vendor
@@ -169,7 +167,6 @@ selon la structure de fichiers conventionnelles. Voir [couchdb-compile][]
 pour les détails.
 
 [Foundation]: <http://foundation.zurb.com/sites/docs/>
-[medium-editor]: <https://github.com/yabwe/medium-editor>
 [sharp]: <http://sharp.dimens.io/en/stable/api/>
 [HapiJS]: <http://hapijs.com/>
 [couchdb-compile]: <https://github.com/jo/couchdb-compile#the-couchdb-directory-tree>
