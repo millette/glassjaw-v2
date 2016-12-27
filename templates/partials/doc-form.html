@@ -20,6 +20,7 @@ dans Futon (interface CouchDB).
   <input type="hidden" name="rev" value="<%- data.doc && data.doc._rev %>">
   <% } %>
   <label>Punch commenté? <input type="checkbox" name="punch_comment"<%- (data.doc && data.doc.punch_comment) ? ' checked' : '' %>></label>
+  <label>Retarder punch de 15 minutes? <input type="checkbox" name="punch_delayed"<%- (data.doc && data.doc.punch_delayed) ? ' checked' : '' %>></label>
   <label>
   <input type="text" name="menu_title" placeholder="Titre du menu" value="<%- data.doc && data.doc.menu_title || '' %>">
   </label>

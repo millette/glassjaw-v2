@@ -205,7 +205,9 @@ exports.register = (server, options, next) => {
   const punchIt = function (request, reply) {
     const doc = request.pre.m1
     if (!doc.punches) { doc.punches = [] }
-    const punch = { datetime: new Date().toISOString() }
+    const punch = { datetime: Date.now() }
+    if (doc.punch_delayed) { punch.datetime += 15 * 60 * 1000 }
+    punch.datetime = new Date(punch.datetime).toISOString()
     if (request.payload.comment) { punch.comment = request.payload.comment }
     doc.punches.push(punch)
     const db = nano({ url: dbUrl, cookie: request.auth.credentials.cookie })
