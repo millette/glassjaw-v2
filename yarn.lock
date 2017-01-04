@@ -757,15 +757,15 @@ domutils@1.5:
     dom-serializer "0"
     domelementtype "1"
 
-dotenv-safe@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-3.0.0.tgz#6da9b185929c49f4e540fe6883150dd6c44c446f"
+dotenv-safe@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-4.0.2.tgz#7d0c961c44948b76a8224798430a48a6cc9c09f8"
   dependencies:
-    dotenv "^2.0.0"
+    dotenv "github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d"
 
-dotenv@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
+"dotenv@github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d":
+  version "4.0.0"
+  resolved "https://codeload.github.com/motdotla/dotenv/tar.gz/fdd0923e82e12a6e29b65898990201857141e75d"
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -1514,9 +1514,32 @@ hapi-scope-start@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/hapi-scope-start/-/hapi-scope-start-2.1.1.tgz#7495a726fe72b7bca8de2cdcc1d87cd8ce6ab4f2"
 
-"hapi@11.x.x || 12.x.x || 13.x.x || 14.x.x || 15.x.x || 16.x.x", hapi@^16.0.2:
+"hapi@11.x.x || 12.x.x || 13.x.x || 14.x.x || 15.x.x || 16.x.x":
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.0.2.tgz#311fe8d158e9e65ac44bc3e519296e4149d32a74"
+  dependencies:
+    accept "2.x.x"
+    ammo "2.x.x"
+    boom "4.x.x"
+    call "4.x.x"
+    catbox "7.x.x"
+    catbox-memory "2.x.x"
+    cryptiles "3.x.x"
+    heavy "4.x.x"
+    hoek "4.x.x"
+    iron "4.x.x"
+    items "2.x.x"
+    joi "10.x.x"
+    mimos "3.x.x"
+    podium "^1.2.x"
+    shot "3.x.x"
+    statehood "5.x.x"
+    subtext "^4.3.x"
+    topo "2.x.x"
+
+hapi@^16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.1.0.tgz#419dd86347588821eb5a0a5f493bce019802d33b"
   dependencies:
     accept "2.x.x"
     ammo "2.x.x"
@@ -1687,9 +1710,9 @@ indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
 
-inert@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/inert/-/inert-4.0.4.tgz#c29005da13a700b6813de21979dcd9756a02d538"
+inert@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/inert/-/inert-4.1.0.tgz#e68df9fb0b87d8ad688e3428daaf35d623b64f5d"
   dependencies:
     ammo "2.x.x"
     boom "4.x.x"
@@ -2159,6 +2182,10 @@ lodash@3.7.x:
 lodash@^4.0.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.3.0:
   version "4.17.3"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.3.tgz#557ed7d2a9438cac5fd5a43043ca60cb455e01f7"
+
+lodash@^4.17.4:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 longest@^1.0.1:
   version "1.0.1"
