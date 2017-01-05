@@ -1,5 +1,5 @@
 <%= partials.head(data) %>
-<div class="front row small-up-2 medium-up-3 large-up-5">
+<div class="front row small-up-2 medium-up-4 large-up-5" data-equalizer data-equalize-by-row="true">
 <% _(data.docs).each((doc) => { %>
 <%= partials['doc-front']({ doc: doc }) %>
 <% }) %>

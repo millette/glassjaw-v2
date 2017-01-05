@@ -1,10 +1,15 @@
 <div class="column">
+<div class="callout" data-equalizer-watch>
 <form method="post">
   <% if (data.doc.img) { %>
     <a href="/punch/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
         <img src="<%- data.doc.img %>" alt="<%- data.doc.title || data.doc._id %>">
     </a>
   <% } else { %>
+    <div class="button-group expanded">
+      <a href="/punch/<%- data.doc._id %>" class="button secondary">View</a>
+      <a href="/punch/<%- data.doc._id %>/edit" class="button warning">Edit</a>
+    </div>
     <button name="punch" value="<%- data.doc._id %>">
       <% if (data.doc.punches && data.doc.punches.length) { %>
         <p>Punché
@@ -28,4 +33,5 @@
     <% } %>
   <% } %>
 </form>
+</div>
 </div>

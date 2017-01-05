@@ -73,14 +73,14 @@ $(function () {
         var $this = $(this)
         var $here = $this.parents('.column')
         ev.preventDefault()
-        console.log('UNDO!!', $here, $this.val())
+        // console.log('UNDO!!', $here, $this.val())
         $here.load('/undo/' + $this.val(), {}, function () {
           renderTime(true)
-          console.log('undid', this)
+          // console.log('undid', this)
         })
         $this.remove()
       })
-      .on('submit', '.column > form[method="post"]', function (ev) {
+      .on('submit', '.column form[method="post"]', function (ev) {
         var $this = $(this)
         var data = $this.serializeArray()
         var $punchButton = $('button[name="punch"]', $this)
