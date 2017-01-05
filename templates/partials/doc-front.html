@@ -3,7 +3,7 @@
 <form method="post">
   <% if (data.doc.img) { %>
     <a href="/punch/<%- data.doc._id %>" title="<%- data.doc.title || data.doc._id %>">
-        <img src="<%- data.doc.img %>" alt="<%- data.doc.title || data.doc._id %>">
+      <img src="<%- data.doc.img %>" alt="<%- data.doc.title || data.doc._id %>">
     </a>
   <% } else { %>
     <div class="button-group expanded">
