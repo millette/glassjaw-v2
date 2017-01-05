@@ -1,10 +1,14 @@
 <div class="row column">
+  <div class="button-group small expanded pick-graph">
+    <button value="punchcard" class="button secondary hollow">Punchcard</button>
+    <button value="by-day" class="button secondary hollow">By day</button>
+  </div>
   <div data-src="<%- data.doc._id %>" id="vis"></div>
 </div>
 <div class="row">
   <div class="column small-8">
     <% if (data.credentials || data.edit) { %>
-    <p><a class="button hollow" href="/punch/<%- data.doc._id %>/edit">edit</a></p>
+    <p><a class="button warning" href="/punch/<%- data.doc._id %>/edit">edit</a></p>
     <% } %>
     <h3>Activité</h3>
     <ol>

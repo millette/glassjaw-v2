@@ -1,4 +1,4 @@
-/* global $, timeago, vg */
+/* global $ */
 
 /**
  * TODO
@@ -9,8 +9,47 @@
  */
 
 $(function () {
-  var timeagoInstance = new timeago() // eslint-disable-line new-cap
+  var timeagoInstance = new window.timeago() // eslint-disable-line new-cap
   var $vis = $('#vis')
+
+  var graphEncoding = {
+    punchcard: {
+      y: {
+        field: 'datetime',
+        type: 'temporal',
+        timeUnit: 'day'
+      },
+      x: {
+        field: 'datetime',
+        type: 'temporal',
+        timeUnit: 'hours'
+      },
+      size: {
+        field: 'datetime',
+        type: 'quantitative',
+        aggregate: 'count'
+      }
+    },
+    'by-day': {
+      x: {
+        timeUnit: 'yearmonthdate',
+        field: 'datetime',
+        type: 'temporal',
+        axis: {
+          axisWidth: 0,
+          format: '%d',
+          labelAngle: 0
+        }
+      },
+      y: {
+        aggregate: 'count',
+        field: 'datetime',
+        type: 'quantitative'
+      }
+    }
+  }
+
+  var pickedGraph = 'punchcard'
 
   var renderTime = function (cancel) {
     var $timeago = $('.timeago')
@@ -19,6 +58,7 @@ $(function () {
     // https://github.com/hustcc/timeago.js/issues/98
     // High CPU usage with jQuery 2.2.2 (or not..??)
     if ($.fn.jquery < '2.2.4') {
+    // if ($.fn.jquery < '3') {
       for (r = 0; r < $timeago.length; ++r) {
         // timeagoInstance.render($timeago[r], 'fr')
         // only use timer when time is less than 8h ago
@@ -34,7 +74,7 @@ $(function () {
   }
 
   var renderGraph = function () {
-    vg.embed($vis[0], {
+    window.vg.embed($vis[0], {
       mode: 'vega-lite',
       // renderer: 'svg', // canvas by default
       actions: false,
@@ -42,28 +82,18 @@ $(function () {
         description: 'A simple bar chart with embedded data.',
         data: { url: ['/punch', $vis.data('src'), 'punches.json'].join('/') },
         mark: 'circle',
-        encoding: {
-          y: {
-            field: 'datetime',
-            type: 'temporal',
-            timeUnit: 'day'
-          },
-          x: {
-            field: 'datetime',
-            type: 'temporal',
-            timeUnit: 'hours'
-          },
-          size: {
-            field: 'datetime',
-            type: 'quantitative',
-            aggregate: 'count'
-          }
-        }
+        encoding: graphEncoding[pickedGraph]
       }
     })
   }
 
   $(document).foundation()
+
+  $('.pick-graph > button').click(function (ev) {
+    ev.preventDefault()
+    pickedGraph = $(this).val()
+    renderGraph()
+  })
 
   if ($('.row.front').length) {
     renderTime()
@@ -107,7 +137,7 @@ $(function () {
             var $undo = $('<button class="button alert small expanded" name="undo" value="' + obj.punch + '">UNDO</button>')
             renderTime(true)
             if (!$('button[name="undo"]', $here).length) {
-              $here.prepend($undo)
+              $('.callout', $here).prepend($undo)
               setTimeout(function () { $undo.remove() }, 30000)
             }
             $here.removeClass('punched')
