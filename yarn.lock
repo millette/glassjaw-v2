@@ -490,7 +490,7 @@ color-string@^1.4.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^1.0.2:
+color@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/color/-/color-1.0.3.tgz#e48e832d85f14ef694fb468811c2d5cfe729b55d"
   dependencies:
@@ -757,15 +757,15 @@ domutils@1.5:
     dom-serializer "0"
     domelementtype "1"
 
-dotenv-safe@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-4.0.2.tgz#7d0c961c44948b76a8224798430a48a6cc9c09f8"
+dotenv-safe@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-4.0.3.tgz#3c98f69f6072f7b2d0df120a65add27ac2550029"
   dependencies:
-    dotenv "github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d"
+    dotenv "^4.0.0"
 
-"dotenv@github:motdotla/dotenv#fdd0923e82e12a6e29b65898990201857141e75d":
+dotenv@^4.0.0:
   version "4.0.0"
-  resolved "https://codeload.github.com/motdotla/dotenv/tar.gz/fdd0923e82e12a6e29b65898990201857141e75d"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
 double-ended-queue@^2.1.0-0:
   version "2.1.0-0"
@@ -968,48 +968,9 @@ eslint-plugin-standard@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-2.0.1.tgz#3589699ff9c917f2c25f76a916687f641c369ff3"
 
-eslint@3.9.x:
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.9.1.tgz#5a8597706fc6048bc6061ac754d4a211d28f4f5b"
-  dependencies:
-    babel-code-frame "^6.16.0"
-    chalk "^1.1.3"
-    concat-stream "^1.4.6"
-    debug "^2.1.1"
-    doctrine "^1.2.2"
-    escope "^3.6.0"
-    espree "^3.3.1"
-    estraverse "^4.2.0"
-    esutils "^2.0.2"
-    file-entry-cache "^2.0.0"
-    glob "^7.0.3"
-    globals "^9.2.0"
-    ignore "^3.1.5"
-    imurmurhash "^0.1.4"
-    inquirer "^0.12.0"
-    is-my-json-valid "^2.10.0"
-    is-resolvable "^1.0.0"
-    js-yaml "^3.5.1"
-    json-stable-stringify "^1.0.0"
-    levn "^0.3.0"
-    lodash "^4.0.0"
-    mkdirp "^0.5.0"
-    natural-compare "^1.4.0"
-    optionator "^0.8.2"
-    path-is-inside "^1.0.1"
-    pluralize "^1.2.1"
-    progress "^1.1.8"
-    require-uncached "^1.0.2"
-    shelljs "^0.7.5"
-    strip-bom "^3.0.0"
-    strip-json-comments "~1.0.1"
-    table "^3.7.8"
-    text-table "~0.2.0"
-    user-home "^2.0.0"
-
-eslint@^3.12.2:
-  version "3.12.2"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.12.2.tgz#6be5a9aa29658252abd7f91e9132bab1f26f3c34"
+eslint@3.13.x:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.13.1.tgz#564d2646b5efded85df96985332edd91a23bff25"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -1041,7 +1002,46 @@ eslint@^3.12.2:
     require-uncached "^1.0.2"
     shelljs "^0.7.5"
     strip-bom "^3.0.0"
-    strip-json-comments "~1.0.1"
+    strip-json-comments "~2.0.1"
+    table "^3.7.8"
+    text-table "~0.2.0"
+    user-home "^2.0.0"
+
+eslint@^3.14.0:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.14.0.tgz#2c617e5f782fda5cbee5bc8be7ef5053af8e63a3"
+  dependencies:
+    babel-code-frame "^6.16.0"
+    chalk "^1.1.3"
+    concat-stream "^1.4.6"
+    debug "^2.1.1"
+    doctrine "^1.2.2"
+    escope "^3.6.0"
+    espree "^3.3.1"
+    estraverse "^4.2.0"
+    esutils "^2.0.2"
+    file-entry-cache "^2.0.0"
+    glob "^7.0.3"
+    globals "^9.14.0"
+    ignore "^3.2.0"
+    imurmurhash "^0.1.4"
+    inquirer "^0.12.0"
+    is-my-json-valid "^2.10.0"
+    is-resolvable "^1.0.0"
+    js-yaml "^3.5.1"
+    json-stable-stringify "^1.0.0"
+    levn "^0.3.0"
+    lodash "^4.0.0"
+    mkdirp "^0.5.0"
+    natural-compare "^1.4.0"
+    optionator "^0.8.2"
+    path-is-inside "^1.0.1"
+    pluralize "^1.2.1"
+    progress "^1.1.8"
+    require-uncached "^1.0.2"
+    shelljs "^0.7.5"
+    strip-bom "^3.0.0"
+    strip-json-comments "~2.0.1"
     table "^3.7.8"
     text-table "~0.2.0"
     user-home "^2.0.0"
@@ -1340,12 +1340,9 @@ get-stdin@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
 
-get-stream@^2.3.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-2.3.1.tgz#5f38f93f346009666ee0150a054167f91bdd95de"
-  dependencies:
-    object-assign "^4.0.1"
-    pinkie-promise "^2.0.0"
+get-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
 getpass@^0.1.1:
   version "0.1.6"
@@ -1416,19 +1413,19 @@ got@^3.2.0:
     read-all-stream "^3.0.0"
     timed-out "^2.0.0"
 
-got@^6.6.3:
-  version "6.6.3"
-  resolved "https://registry.yarnpkg.com/got/-/got-6.6.3.tgz#ff72c56d7f040eb8918ffb80fb62bcaf489d4eec"
+got@^6.7.1:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/got/-/got-6.7.1.tgz#240cd05785a9a18e561dc1b44b41c763ef1e8db0"
   dependencies:
     create-error-class "^3.0.0"
     duplexer3 "^0.1.4"
-    get-stream "^2.3.0"
+    get-stream "^3.0.0"
     is-redirect "^1.0.0"
     is-retry-allowed "^1.0.0"
     is-stream "^1.0.0"
     lowercase-keys "^1.0.0"
-    node-status-codes "^2.0.0"
-    timed-out "^3.0.0"
+    safe-buffer "^5.0.1"
+    timed-out "^4.0.0"
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
@@ -1496,9 +1493,9 @@ hapi-couchdb-login@^0.2.1:
     lodash "^4.17.2"
     pify "^2.3.0"
 
-hapi-error@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/hapi-error/-/hapi-error-1.6.0.tgz#2935eaa92cc5a9c0bb9ec7575891bea4ede34c08"
+hapi-error@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/hapi-error/-/hapi-error-1.7.0.tgz#9015e8d49980bdb9550cfdce815cc010030e12dc"
   dependencies:
     hoek "^4.1.0"
 
@@ -1514,30 +1511,7 @@ hapi-scope-start@2.x.x:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/hapi-scope-start/-/hapi-scope-start-2.1.1.tgz#7495a726fe72b7bca8de2cdcc1d87cd8ce6ab4f2"
 
-"hapi@11.x.x || 12.x.x || 13.x.x || 14.x.x || 15.x.x || 16.x.x":
-  version "16.0.2"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.0.2.tgz#311fe8d158e9e65ac44bc3e519296e4149d32a74"
-  dependencies:
-    accept "2.x.x"
-    ammo "2.x.x"
-    boom "4.x.x"
-    call "4.x.x"
-    catbox "7.x.x"
-    catbox-memory "2.x.x"
-    cryptiles "3.x.x"
-    heavy "4.x.x"
-    hoek "4.x.x"
-    iron "4.x.x"
-    items "2.x.x"
-    joi "10.x.x"
-    mimos "3.x.x"
-    podium "^1.2.x"
-    shot "3.x.x"
-    statehood "5.x.x"
-    subtext "^4.3.x"
-    topo "2.x.x"
-
-hapi@^16.1.0:
+"hapi@11.x.x || 12.x.x || 13.x.x || 14.x.x || 15.x.x || 16.x.x", hapi@^16.1.0:
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-16.1.0.tgz#419dd86347588821eb5a0a5f493bce019802d33b"
   dependencies:
@@ -1698,7 +1672,7 @@ ignore-by-default@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ignore-by-default/-/ignore-by-default-1.0.1.tgz#48ca6d72f6c6a3af00a9ad4ae6876be3889e2b09"
 
-ignore@^3.0.9, ignore@^3.1.5, ignore@^3.2.0:
+ignore@^3.0.9, ignore@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.2.0.tgz#8d88f03c3002a0ac52114db25d2c673b0bf1e435"
 
@@ -2046,13 +2020,13 @@ kind-of@^3.0.2:
   dependencies:
     is-buffer "^1.0.2"
 
-lab@^11.2.1:
-  version "11.2.1"
-  resolved "https://registry.yarnpkg.com/lab/-/lab-11.2.1.tgz#d1c5e18f1df837a3d0ba3bff7a670aaa8fc1921f"
+lab@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/lab/-/lab-12.0.0.tgz#2e83e493b9f65ac7ee74c2a3ba4dbf5c9204a25c"
   dependencies:
     bossy "3.x.x"
     diff "3.x.x"
-    eslint "3.9.x"
+    eslint "3.13.x"
     eslint-config-hapi "10.x.x"
     eslint-plugin-hapi "4.x.x"
     espree "3.x.x"
@@ -2099,11 +2073,11 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-lodash-vision@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/lodash-vision/-/lodash-vision-0.1.0.tgz#3ef6df27acf58a321c110c93ba60d402cda5beb7"
+lodash-vision@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/lodash-vision/-/lodash-vision-0.2.0.tgz#9aa56bd6562cb098541f2169ebcac6c19d53713c"
   dependencies:
-    lodash "^4.17.3"
+    lodash "^4.17.4"
 
 lodash._baseassign@^3.0.0:
   version "3.2.0"
@@ -2179,11 +2153,7 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@^4.0.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.3.0:
-  version "4.17.3"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.3.tgz#557ed7d2a9438cac5fd5a43043ca60cb455e01f7"
-
-lodash@^4.17.4:
+lodash@^4.0.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -2295,9 +2265,13 @@ mute-stream@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
 
-nan@^2.3.0, nan@^2.4.0:
+nan@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.4.0.tgz#fb3c59d45fe4effe215f0b890f8adf6eb32d2232"
+
+nan@^2.5.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.1.tgz#d5b01691253326a97a2bbee9e61c55d8d60351e2"
 
 nano-option@^1.2.2:
   version "1.2.2"
@@ -2354,10 +2328,6 @@ node-pre-gyp@^0.6.29:
     semver "~5.3.0"
     tar "~2.2.1"
     tar-pack "~3.3.0"
-
-node-status-codes@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/node-status-codes/-/node-status-codes-2.0.1.tgz#298067659cb68a2b4670abbefde02a3819981f5b"
 
 node-uuid@~1.4.0:
   version "1.4.7"
@@ -2909,6 +2879,10 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
+safe-buffer@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
+
 seedrandom@2.4.x:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-2.4.2.tgz#18d78c41287d13aff8eadb29e235938b248aa9ff"
@@ -2931,14 +2905,14 @@ set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
 
-sharp@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.17.0.tgz#c0acc68924e2491cb46d6d912b5c19b553032b8d"
+sharp@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/sharp/-/sharp-0.17.1.tgz#aeb8ab921691b016a00f042d61f152144cd20f9d"
   dependencies:
     caw "^2.0.0"
-    color "^1.0.2"
-    got "^6.6.3"
-    nan "^2.4.0"
+    color "^1.0.3"
+    got "^6.7.1"
+    nan "^2.5.0"
     semver "^5.3.0"
     tar "^2.2.1"
 
@@ -3177,6 +3151,10 @@ strip-json-comments@1.0.x, strip-json-comments@~1.0.1, strip-json-comments@~1.0.
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-1.0.4.tgz#1e15fbcac97d3ee99bf2d73b4c656b082bbafb91"
 
+strip-json-comments@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+
 subtext@^4.3.x:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/subtext/-/subtext-4.3.0.tgz#dfac90492ec35669fd6e00c6e5d938b06d7ccfbb"
@@ -3235,9 +3213,9 @@ timed-out@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-2.0.0.tgz#f38b0ae81d3747d628001f41dafc652ace671c0a"
 
-timed-out@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-3.1.0.tgz#43b98b14bb712c9161c28f4dc1f3068d67a04ec2"
+timed-out@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
 
 to-array@0.1.4:
   version "0.1.4"
