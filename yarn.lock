@@ -1482,15 +1482,16 @@ hapi-context-credentials@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/hapi-context-credentials/-/hapi-context-credentials-2.0.0.tgz#bc0093c128a94ed6a4aac57614eea16065c71224"
 
-hapi-couchdb-login@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/hapi-couchdb-login/-/hapi-couchdb-login-0.2.1.tgz#8b4b967ea87b4ddc776fac72910be4168e1510c1"
+hapi-couchdb-login@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/hapi-couchdb-login/-/hapi-couchdb-login-0.3.0.tgz#cc529a21d2fe24dc86d7fd74d862d1036b5c8103"
   dependencies:
     boom "^4.2.0"
     cloudant-nano "^6.4.1"
+    hapi "^16.1.0"
     hapi-auth-cookie "^6.1.1"
     hapi-boom-decorators "^2.2.2"
-    lodash "^4.17.2"
+    lodash "^4.17.4"
     pify "^2.3.0"
 
 hapi-error@^1.7.0:
@@ -2153,7 +2154,7 @@ lodash@3.7.x:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.7.0.tgz#3678bd8ab995057c07ade836ed2ef087da811d45"
 
-lodash@^4.0.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -2265,11 +2266,7 @@ mute-stream@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
 
-nan@^2.3.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.4.0.tgz#fb3c59d45fe4effe215f0b890f8adf6eb32d2232"
-
-nan@^2.5.0:
+nan@^2.3.0, nan@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.1.tgz#d5b01691253326a97a2bbee9e61c55d8d60351e2"
 
