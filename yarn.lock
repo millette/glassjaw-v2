@@ -1474,9 +1474,9 @@ hapi-capitalize-modules@1.x.x:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/hapi-capitalize-modules/-/hapi-capitalize-modules-1.1.6.tgz#7991171415e15e6aa3231e64dda73c8146665318"
 
-hapi-context-app@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/hapi-context-app/-/hapi-context-app-0.2.1.tgz#2f836234e1c8713547444b2d2bf6866809acfbe0"
+hapi-context-app@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/hapi-context-app/-/hapi-context-app-0.3.0.tgz#e3030ad50584fb9967e5260bfc45427454c48008"
 
 hapi-context-credentials@^2.0.0:
   version "2.0.0"

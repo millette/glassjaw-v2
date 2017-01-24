@@ -33,7 +33,7 @@
     "hapi": "^16.1.0",
     "hapi-auth-cookie": "^6.1.1",
     "hapi-boom-decorators": "^2.2.2",
-    "hapi-context-app": "^0.2.1",
+    "hapi-context-app": "^0.3.0",
     "hapi-context-credentials": "^2.0.0",
     "hapi-couchdb-login": "^0.3.0",
     "hapi-error": "^1.7.0",
