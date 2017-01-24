@@ -7,7 +7,7 @@ const criteria = { env: process.env.NODE_ENV }
 
 const defFalse = {
   $filter: 'env',
-  prod: true,
+  production: true,
   $default: false
 }
 
