@@ -35,12 +35,12 @@
     "hapi-boom-decorators": "^2.2.2",
     "hapi-context-app": "^0.3.0",
     "hapi-context-credentials": "^2.0.0",
-    "hapi-couchdb-login": "^0.3.0",
+    "hapi-couchdb-login": "^0.3.1",
     "hapi-error": "^1.7.0",
     "hapi-favicon": "^1.0.0",
     "hapijs-status-monitor": "^0.5.0",
     "hoek": "^4.1.0",
-    "html-truncate": "^1.2.1",
+    "html-truncate": "^1.2.2",
     "inert": "^4.1.0",
     "lodash": "^4.17.4",
     "lodash-vision": "^0.2.0",
@@ -52,11 +52,11 @@
   },
   "devDependencies": {
     "code": "^4.0.0",
-    "eslint": "^3.16.1",
+    "eslint": "^3.17.1",
     "eslint-plugin-json": "^1.2.0",
     "lab": "^12.1.0",
     "nodemon": "^1.11.0",
-    "standard": "^8.6.0"
+    "standard": "^9.0.1"
   },
   "eslintConfig": {
     "plugins": [
